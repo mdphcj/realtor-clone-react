@@ -17,6 +17,7 @@ export default function Slider() {
   const [loading, setLoading] = useState(true);
   SwiperCore.use([Autoplay, Navigation, Pagination]);
   const navigate = useNavigate();
+
   useEffect(() => {
     async function fetchListings() {
       const listingsRef = collection(db, "listings");
@@ -32,14 +33,18 @@ export default function Slider() {
       setListings(listings);
       setLoading(false);
     }
+
     fetchListings();
   }, []);
+
   if (loading) {
     return <Spinner />;
   }
+
   if (listings.length === 0) {
     return <></>;
   }
+
   return (
     listings && (
       <>
