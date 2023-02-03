@@ -61,6 +61,19 @@ export default function CreateListing() {
   } = formData;
 
   useEffect(() => {
+    if (listing && listing.userRef !== auth.currentUser.uid) {
+      toast.error("You cannot edit this listing");
+      navigate("/");
+    }
+  }, [listing, auth.currentUser.uid, navigate]);
+  useEffect(() => {
+    if (listing && listing.userRef !== auth.currentUser.uid) {
+      toast.error("You cannot edit this listing");
+      navigate("/");
+    }
+  }, [listing, auth.currentUser.uid, navigate]);
+
+  useEffect(() => {
     setLoading(true);
     async function fetchListing() {
       const docRef = doc(db, "listings", params.listingId);
@@ -80,13 +93,6 @@ export default function CreateListing() {
     }
     fetchListing();
   }, [navigate, params.listingId]);
-
-  useEffect(() => {
-    if (listing && listing.userRef !== auth.currentUser.uid) {
-      toast.error("You cannot edit this listing");
-      navigate("/");
-    }
-  }, [listing, auth.currentUser.uid, navigate]);
 
   function onChange(e) {
     let boolean = null;
